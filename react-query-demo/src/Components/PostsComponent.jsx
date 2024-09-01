@@ -1,13 +1,13 @@
+
 import React from 'react';
 import { useQuery } from 'react-query';
 
-// Function to fetch posts from the API
 const fetchPosts = async () => {
-  const res = await fetch('https://jsonplaceholder.typicode.com/posts');
-  if (!res.ok) {
+  const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+  if (!response.ok) {
     throw new Error('Network response was not ok');
   }
-  return res.json();
+  return response.json();
 };
 
 const PostsComponent = () => {
@@ -18,9 +18,9 @@ const PostsComponent = () => {
 
   return (
     <div>
-      <button onClick={refetch}>Refetch Posts</button>
+      <button onClick={() => refetch()}>Refetch Posts</button>
       <ul>
-        {data.map(post => (
+        {data.map((post) => (
           <li key={post.id}>
             <h2>{post.title}</h2>
             <p>{post.body}</p>
