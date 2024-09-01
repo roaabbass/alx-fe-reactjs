@@ -1,7 +1,8 @@
-
+// src/components/PostsComponent.jsx
 import React from 'react';
 import { useQuery } from 'react-query';
 
+// Function to fetch posts from the API
 const fetchPosts = async () => {
   const response = await fetch('https://jsonplaceholder.typicode.com/posts');
   if (!response.ok) {
@@ -11,6 +12,7 @@ const fetchPosts = async () => {
 };
 
 const PostsComponent = () => {
+  // Use the useQuery hook to fetch the posts
   const { data, error, isLoading, isError, refetch } = useQuery('posts', fetchPosts);
 
   if (isLoading) return <p>Loading...</p>;
