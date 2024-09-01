@@ -8,58 +8,47 @@ const RegistrationForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Reset errors
-    setErrors({});
-
-    // Basic validation: Check if any field is empty
-    const newErrors = {};
-    if (!username) newErrors.username = 'Username is required';
-    if (!email) newErrors.email = 'Email is required';
-    if (!password) newErrors.password = 'Password is required';
-
-    // If there are errors, update the error state and stop submission
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      return;
+    e.preventDefault();
+    if (!username || !email || !password) {
+        setError('All fields are required');
+        return;
     }
-
-    // Simulate form submission
+    // Mock API call
     console.log({ username, email, password });
-  };
+    setError('');
+    alert('Registration successful!');
+};
 
-  return (
+return (
     <form onSubmit={handleSubmit}>
-      <div>
-        <label>Username</label>
-        <input
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        {errors.username && <div style={{ color: 'red' }}>{errors.username}</div>}
-      </div>
-      <div>
-        <label>Email</label>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        {errors.email && <div style={{ color: 'red' }}>{errors.email}</div>}
-      </div>
-      <div>
-        <label>Password</label>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        {errors.password && <div style={{ color: 'red' }}>{errors.password}</div>}
-      </div>
-      <button type="submit">Register</button>
+        <div>
+            <label>Username:</label>
+            <input 
+                type="text" 
+                value={username} 
+                onChange={(e) => setUsername(e.target.value)} 
+            />
+        </div>
+        <div>
+            <label>Email:</label>
+            <input 
+                type="email" 
+                value={email} 
+                onChange={(e) => setEmail(e.target.value)} 
+            />
+        </div>
+        <div>
+            <label>Password:</label>
+            <input 
+                type="password" 
+                value={password} 
+                onChange={(e) => setPassword(e.target.value)} 
+            />
+        </div>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+        <button type="submit">Register</button>
     </form>
-  );
+);
 };
 
 export default RegistrationForm;
