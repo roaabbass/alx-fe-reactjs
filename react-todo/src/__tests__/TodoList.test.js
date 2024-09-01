@@ -1,34 +1,43 @@
-// src/components/TodoList.jsx
-import React, { useState } from 'react';
+import React from 'react';
+import { render, screen, fireEvent } from '@testing-library/react';
+import '@testing-library/jest-dom';
+import TodoList from '../components/TodoList';
 
-const TodoList = () => {
-  const [todos, setTodos] = useState([]);
-  const [newTodo, setNewTodo] = useState('');
+describe('TodoList Component', () => {
+  test('renders initial todos', () => {
+    render(<TodoList />);
+    expect(screen.getByText(/learn react/i)).toBeInTheDocument();
+    expect(screen.getByText(/learn jest/i)).toBeInTheDocument();
+  });
 
-  const handleAddTodo = () => {
-    if (newTodo.trim()) {
-      setTodos([...todos, newTodo]);
-      setNewTodo('');
-    }
-  };
+  test('allows user to add a new todo', () => {
+    render(<TodoList />);
+    const input = screen.getByPlaceholderText(/add a new todo/i);
+    const addButton = screen.getByRole('button', { name: /add todo/i });
 
-  return (
-    <div>
-      <h2>Todo List</h2>
-      <input
-        type="text"
-        value={newTodo}
-        onChange={(e) => setNewTodo(e.target.value)}
-        placeholder="Add a new todo"
-      />
-      <button onClick={handleAddTodo}>Add Todo</button>
-      <ul>
-        {todos.map((todo, index) => (
-          <li key={index}>{todo}</li>
-        ))}
-      </ul>
-    </div>
-  );
-};
+    fireEvent.change(input, { target: { value: 'New Todo' } });
+    fireEvent.click(addButton);
 
-export default TodoList;
+    expect(screen.getByText(/new todo/i)).toBeInTheDocument();
+  });
+
+  test('allows user to toggle todo completion', () => {
+    render(<TodoList />);
+    const todoItem = screen.getByText(/learn react/i);
+
+    fireEvent.click(todoItem);
+    expect(todoItem).toHaveStyle('text-decoration: line-through');
+
+    fireEvent.click(todoItem);
+    expect(todoItem).toHaveStyle('text-decoration: none');
+  });
+
+  test('allows user to delete a todo', () => {
+    render(<TodoList />);
+    const deleteButton = screen.getAllByText(/delete/i)[0]; // Select the first delete button
+    const todoItem = screen.getByText(/learn react/i);
+
+    fireEvent.click(deleteButton);
+    expect(todoItem).not.toBeInTheDocument();
+  });
+});
