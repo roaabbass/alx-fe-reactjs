@@ -12,7 +12,7 @@ const fetchPosts = async () => {
 };
 
 const PostsComponent = () => {
-  // Use the useQuery hook to fetch the posts
+
   const { data, error, isLoading, isError, refetch } = useQuery('posts', fetchPosts);
 
   if (isLoading) return <p>Loading...</p>;
