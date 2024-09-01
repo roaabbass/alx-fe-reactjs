@@ -1,32 +1,25 @@
 // src/components/PostsComponent.jsx
 import React from 'react';
 import { useQuery } from 'react-query';
+import axios from 'axios';
 
-// Function to fetch posts from the API
 const fetchPosts = async () => {
-  const response = await fetch('https://jsonplaceholder.typicode.com/posts');
-  if (!response.ok) {
-    throw new Error('Network response was not ok');
-  }
-  return response.json();
+  const { data } = await axios.get('https://jsonplaceholder.typicode.com/posts');
+  return data;
 };
 
 const PostsComponent = () => {
+  const { data, error, isLoading, refetch } = useQuery('posts', fetchPosts);
 
-  const { data, error, isLoading, isError, refetch } = useQuery('posts', fetchPosts);
-
-  if (isLoading) return <p>Loading...</p>;
-  if (isError) return <p>Error: {error.message}</p>;
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error fetching posts</div>;
 
   return (
     <div>
       <button onClick={() => refetch()}>Refetch Posts</button>
       <ul>
-        {data.map((post) => (
-          <li key={post.id}>
-            <h2>{post.title}</h2>
-            <p>{post.body}</p>
-          </li>
+        {data.map(post => (
+          <li key={post.id}>{post.title}</li>
         ))}
       </ul>
     </div>
