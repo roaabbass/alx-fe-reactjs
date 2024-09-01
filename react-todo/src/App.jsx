@@ -1,18 +1,44 @@
 // src/App.jsx
-import React from 'react';
-import TodoList from './components/TodoList';
+import React, { useState } from 'react';
 
-function App() {
+const App = () => {
+  const [count, setCount] = useState(0);
+  const [inputValue, setInputValue] = useState('');
+  const [isInputVisible, setIsInputVisible] = useState(true);
+
+  const handleIncrement = () => {
+    setCount(count + 1);
+  };
+
+  const handleInputChange = (event) => {
+    setInputValue(event.target.value);
+  };
+
+  const toggleInputVisibility = () => {
+    setIsInputVisible(!isInputVisible);
+  };
+
   return (
-    <div className="App">
-      <header>
-        <h1>My Todo App</h1>
-      </header>
-      <main>
-        <TodoList />
-      </main>
+    <div>
+      <h1>Counter App</h1>
+      <p>Current count: {count}</p>
+      <button onClick={handleIncrement}>Increment</button>
+      
+      <div>
+        <button onClick={toggleInputVisibility}>
+          {isInputVisible ? 'Hide Input' : 'Show Input'}
+        </button>
+        {isInputVisible && (
+          <input
+            type="text"
+            value={inputValue}
+            onChange={handleInputChange}
+            placeholder="Type something..."
+          />
+        )}
+      </div>
     </div>
   );
-}
+};
 
 export default App;
