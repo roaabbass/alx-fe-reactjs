@@ -1,6 +1,7 @@
 // src/App.jsx
 import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { useAuth } from './hooks/useAuth';
 import LoadingSpinner from './components/LoadingSpinner';
 import ProtectedRoute from './components/ProtectedRoute';
 import ErrorBoundary from './components/ErrorBoundary';
@@ -10,9 +11,10 @@ const About = lazy(() => import('./pages/About'));
 const Profile = lazy(() => import('./pages/Profile'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
 const NotFound = lazy(() => import('./pages/NotFound'));
+const Login = lazy(() => import('./pages/Login'));
 
 function App() {
-  const isAuthenticated = true; // Replace this with your actual authentication logic
+  const auth = useAuth();
 
   return (
     <Router>
@@ -24,10 +26,11 @@ function App() {
             <Route path="/profile/*" element={
               <ProtectedRoute 
                 element={<Profile />} 
-                isAuthenticated={isAuthenticated} 
+                isAuthenticated={auth.isAuthenticated} 
               />
             } />
             <Route path="/blog/:id" element={<BlogPost />} />
+            <Route path="/login" element={<Login />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>

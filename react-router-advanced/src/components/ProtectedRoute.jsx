@@ -1,14 +1,17 @@
-// src/components/ProtectedRoute.jsx
+
 import React from 'react';
 import { Navigate } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
 
-const ProtectedRoute = ({ element, isAuthenticated, requiredRole }) => {
-  const userRole = 'user'; // Simulate user role
-  return (
-    isAuthenticated && (!requiredRole || userRole === requiredRole)
-      ? element
-      : <Navigate to="/login" />
-  );
+const ProtectedRoute = ({ element, ...rest }) => {
+  const { isAuthenticated } = useAuth();
+
+  if (!isAuthenticated) {
+
+    return <Navigate to="/login" replace />;
+  }
+
+  return element;
 };
 
 export default ProtectedRoute;
