@@ -4,6 +4,7 @@
       "title": "Spaghetti Carbonara",
       "summary": "A classic Italian pasta dish with eggs, cheese, bacon, and black pepper.",
       "image": "https://via.placeholder.com/150",
+      "introduction": "Spaghetti Carbonara is a traditional Italian dish from Rome. This rich and creamy pasta is made with eggs, cheese, pancetta, and black pepper. It's a perfect comfort food that is both satisfying and delicious.",
       "ingredients": [
         "200g spaghetti",
         "100g pancetta",
@@ -25,6 +26,7 @@
       "title": "Chicken Tikka Masala",
       "summary": "Chunks of grilled chicken (tikka) cooked in a smooth buttery & creamy tomato based gravy.",
       "image": "https://via.placeholder.com/150",
+      "introduction": "Chicken Tikka Masala is a popular dish in Indian cuisine that features grilled chicken chunks simmered in a rich and creamy tomato-based sauce. This flavorful dish is known for its perfect blend of spices and is often enjoyed with naan or rice.",
       "ingredients": [
         "500g chicken breast",
         "200g yogurt",
