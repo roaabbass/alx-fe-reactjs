@@ -1,11 +1,21 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: [
-    "./index.css",
-    "./src/**/*.{js,jsx,ts,tsx}",
-  ],
+export default {
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    function ({ addBase, config }) {
+      const content = config('content', [
+        "./public/index.html",
+        "./src/**/*.{js,jsx,ts,tsx}",
+      ]);
+
+      // Optionally, you can add base styles or other plugin logic here.
+      addBase({});
+    }
+  ],
+  content: [
+    "./public/index.html",
+    "./src/**/*.{js,jsx,ts,tsx}",
+  ]
 }
