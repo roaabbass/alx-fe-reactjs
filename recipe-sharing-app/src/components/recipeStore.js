@@ -4,6 +4,7 @@ const useRecipeStore = create((set) => ({
   recipes: [],
   favorites: [],
   recommendations: [],
+  searchTerm: '',
 
   // Add a new recipe
   addRecipe: (newRecipe) => set((state) => ({
@@ -42,6 +43,10 @@ const useRecipeStore = create((set) => ({
     );
     return { recommendations: recommended };
   }),
+
+  // Set the search term for filtering recipes
+  setSearchTerm: (term) => set({ searchTerm: term }),
+
 }));
 
 export default useRecipeStore;
