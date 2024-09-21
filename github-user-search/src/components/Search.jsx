@@ -24,6 +24,7 @@ function Search() {
       const userData = await fetchUserData(username);
       setUser(userData);
     } catch (err) {
+      console.error(err); // Log error for debugging
       setError("Looks like we can't find the user");
     } finally {
       setLoading(false);
@@ -43,13 +44,13 @@ function Search() {
       </form>
 
       {loading && <p>Loading...</p>}
-      {error && <p className="error-message">{error}</p>} {/* Add a class for styling if needed */}
+      {error && <p className="error-message">{error}</p>} {/* Error message displayed here */}
 
-      {user && (
+      {user && !error && ( // Ensure error is not present when displaying user info
         <div className="user-details">
           <img src={user.avatar_url} alt={`${user.login}'s avatar`} className="avatar" />
           <h2>{user.name || user.login}</h2>
-          <p>{user.bio}</p>
+          <p>{user.bio || 'No bio available'}</p>
           <p><strong>Followers:</strong> {user.followers}</p>
           <p><strong>Following:</strong> {user.following}</p>
           <p><strong>Public Repos:</strong> {user.public_repos}</p>
