@@ -1,35 +1,62 @@
-// src/components/Search.jsx
 import React, { useState } from 'react';
+import axios from 'axios';
 
-function Search({ onSearch }) {
+function Search() {
   const [username, setUsername] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (!username.trim()) {
-      setErrorMessage('Please enter a valid GitHub username.');
+      setError('Please enter a valid GitHub username.');
       return;
     }
-    setErrorMessage('');
-    onSearch(username);
+
+    setLoading(true);
+    setError(null);
+    setUser(null);
+
+    try {
+      const response = await axios.get(`https://api.github.com/users/${username}`);
+      setUser(response.data);
+    } catch (err) {
+      setError("Looks like we can't find the user");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="search-container">
-      <form onSubmit={handleSubmit} className="search-form">
+      <form onSubmit={handleSubmit}>
         <input
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           placeholder="Enter GitHub username"
-          className="search-input"
         />
-        <button type="submit" className="search-button">
-          Search
-        </button>
+        <button type="submit">Search</button>
       </form>
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
+
+      {loading && <p>Loading...</p>}
+      {error && <p>{error}</p>}
+
+      {user && (
+        <div className="user-details">
+          <img src={user.avatar_url} alt={`${user.login}'s avatar`} className="avatar" />
+          <h2>{user.name || user.login}</h2>
+          <p>{user.bio}</p>
+          <p><strong>Followers:</strong> {user.followers}</p>
+          <p><strong>Following:</strong> {user.following}</p>
+          <p><strong>Public Repos:</strong> {user.public_repos}</p>
+          <a href={user.html_url} target="_blank" rel="noopener noreferrer">
+            View GitHub Profile
+          </a>
+        </div>
+      )}
     </div>
   );
 }
