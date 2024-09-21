@@ -42,7 +42,7 @@ function Search() {
       </form>
 
       {loading && <p>Loading...</p>}
-      {error && <p>{error}</p>}
+      {error && <p className="error-message">{error}</p>} {/* Add a class for styling if needed */}
 
       {user && (
         <div className="user-details">
