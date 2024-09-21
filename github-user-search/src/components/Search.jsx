@@ -24,8 +24,12 @@ function Search() {
       const userData = await fetchUserData(username);
       setUser(userData);
     } catch (err) {
-      console.error(err); // Log error for debugging
-      setError("Looks like we can't find the user");
+      console.error(err);
+      if (err.response && err.response.status === 404) {
+        setError("Looks like we can't find the user");
+      } else {
+        setError("An unexpected error occurred");
+      }
     } finally {
       setLoading(false);
     }
