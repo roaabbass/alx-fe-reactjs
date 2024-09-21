@@ -1,42 +1,79 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+/* src/App.css */
+body {
+  background-color: #f0f0f0; /* Faded gray background */
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+.App {
   text-align: center;
+  min-height: 100vh;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.search-container {
+  margin: 20px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.search-input {
+  padding: 10px;
+  font-size: 16px;
+  width: 250px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.search-button {
+  padding: 10px 15px;
+  font-size: 16px;
+  margin-left: 10px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
 }
 
-.card {
-  padding: 2em;
+.search-button:hover {
+  background-color: #0056b3;
 }
 
-.read-the-docs {
-  color: #888;
+.error-message {
+  color: red;
+  margin-top: 10px;
+}
+
+.user-card {
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  display: inline-block;
+  text-align: left;
+  max-width: 300px;
+  background-color: white;
+}
+
+.avatar {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+}
+
+.user-card h2 {
+  margin: 10px 0;
+}
+
+.user-card a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.user-card a:hover {
+  text-decoration: underline;
 }

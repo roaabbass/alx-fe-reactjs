@@ -7,14 +7,12 @@ function Search({ onSearch }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (!username.trim()) {
       setErrorMessage('Please enter a valid GitHub username.');
       return;
     }
-
     setErrorMessage('');
-    onSearch(username); // Pass the username to the parent component (App.jsx)
+    onSearch(username);
   };
 
   return (
