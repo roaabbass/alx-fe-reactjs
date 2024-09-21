@@ -1,18 +1,25 @@
 // src/App.jsx
 import React, { useState } from 'react';
 import SearchInput from './components/SearchInput';
-import UserCard from './components/UserCard';
-import { searchGitHubUser } from './services/githubAPI';
+import { fetchUserData } from './services/githubService';
 
 function App() {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleSearch = async (username) => {
+    setLoading(true);
+    setError(null);
+    setUser(null);
+    
     try {
-      const userData = await searchGitHubUser(username);
+      const userData = await fetchUserData(username);
       setUser(userData);
     } catch (error) {
-      console.error('User not found', error);
+      setError('Looks like we can’t find the user.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -23,7 +30,18 @@ function App() {
       </header>
       <main>
         <SearchInput onSearch={handleSearch} />
-        {user && <UserCard user={user} />}
+        {loading && <p>Loading...</p>}
+        {error && <p>{error}</p>}
+        {user && (
+          <div className="user-card">
+            <img src={user.avatar_url} alt={`${user.login}'s avatar`} />
+            <h2>{user.login}</h2>
+            <p>{user.bio}</p>
+            <a href={user.html_url} target="_blank" rel="noopener noreferrer">
+              View Profile
+            </a>
+          </div>
+        )}
       </main>
     </div>
   );
