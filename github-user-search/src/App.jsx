@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import Search from './components/Search';
 import { fetchUserData } from './services/githubService';
-import './App.css'; // Importing CSS
+import './App.css'; // Importing CSS for styles
 
 function App() {
   const [user, setUser] = useState(null);
@@ -13,7 +13,7 @@ function App() {
     setLoading(true);
     setError(null);
     setUser(null);
-
+    
     try {
       const userData = await fetchUserData(username);
       setUser(userData);
@@ -31,8 +31,10 @@ function App() {
       </header>
       <main>
         <Search onSearch={handleSearch} />
+
         {loading && <p>Loading...</p>}
         {error && <p className="error-message">{error}</p>}
+
         {user && (
           <div className="user-card">
             <img src={user.avatar_url} alt={`${user.login}'s avatar`} className="avatar" />

@@ -14,7 +14,7 @@ function Search({ onSearch }) {
     }
 
     setErrorMessage('');
-    onSearch(username);
+    onSearch(username); // Pass the username to the parent component (App.jsx)
   };
 
   return (
