@@ -1,6 +1,6 @@
 // src/App.jsx
 import React, { useState } from 'react';
-import SearchInput from './components/SearchInput';
+import Search from './components/Search'; // Corrected import
 import { fetchUserData } from './services/githubService';
 
 function App() {
@@ -29,7 +29,7 @@ function App() {
         <h1>GitHub User Search</h1>
       </header>
       <main>
-        <SearchInput onSearch={handleSearch} />
+        <Search onSearch={handleSearch} />
         {loading && <p>Loading...</p>}
         {error && <p>{error}</p>}
         {user && (
