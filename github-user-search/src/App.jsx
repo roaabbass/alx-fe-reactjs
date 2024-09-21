@@ -1,7 +1,8 @@
 // src/App.jsx
 import React, { useState } from 'react';
-import Search from './components/Search'; // Corrected import
+import Search from './components/Search';
 import { fetchUserData } from './services/githubService';
+import './App.css'; // Importing CSS
 
 function App() {
   const [user, setUser] = useState(null);
@@ -12,7 +13,7 @@ function App() {
     setLoading(true);
     setError(null);
     setUser(null);
-    
+
     try {
       const userData = await fetchUserData(username);
       setUser(userData);
@@ -31,12 +32,15 @@ function App() {
       <main>
         <Search onSearch={handleSearch} />
         {loading && <p>Loading...</p>}
-        {error && <p>{error}</p>}
+        {error && <p className="error-message">{error}</p>}
         {user && (
           <div className="user-card">
-            <img src={user.avatar_url} alt={`${user.login}'s avatar`} />
-            <h2>{user.login}</h2>
-            <p>{user.bio}</p>
+            <img src={user.avatar_url} alt={`${user.login}'s avatar`} className="avatar" />
+            <h2>{user.name || user.login}</h2>
+            {user.bio && <p>{user.bio}</p>}
+            <p><strong>Followers:</strong> {user.followers}</p>
+            <p><strong>Following:</strong> {user.following}</p>
+            <p><strong>Public Repos:</strong> {user.public_repos}</p>
             <a href={user.html_url} target="_blank" rel="noopener noreferrer">
               View Profile
             </a>
