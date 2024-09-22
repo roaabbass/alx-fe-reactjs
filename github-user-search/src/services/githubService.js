@@ -8,7 +8,7 @@ export const fetchUserData = async (username, location = '', minRepos = '') => {
   if (minRepos) query += `+repos:>=${minRepos}`; // Add minimum repositories to the query
 
   // Make the API request to the GitHub Search API
-  const response = await axios.get(`https://api.github.com/search/users?$q`);
+  const response = await axios.get("https://api.github.com/search/users?q");
 
   // If no users are found, throw an error
   if (response.data.items.length === 0) {
