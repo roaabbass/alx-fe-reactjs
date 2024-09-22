@@ -26,7 +26,7 @@ function Search() {
     } catch (err) {
       console.error(err);
       if (err.response && err.response.status === 404) {
-        setError("Looks like we can't find the user");
+        setError("Looks like we cant find the user");
       } else {
         setError("An unexpected error occurred");
       }
