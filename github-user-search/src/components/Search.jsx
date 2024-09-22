@@ -3,8 +3,8 @@ import { fetchUserData } from '../services/githubService';
 
 function Search() {
   const [username, setUsername] = useState('');
-  const [location, setLocation] = useState(''); // New state for location
-  const [minRepos, setMinRepos] = useState(''); // New state for minimum repositories
+  const [location, setLocation] = useState('');
+  const [minRepos, setMinRepos] = useState('');
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -22,7 +22,6 @@ function Search() {
     setUser(null);
 
     try {
-      // Pass all the search parameters
       const userData = await fetchUserData(username, location, minRepos);
       setUser(userData);
     } catch (err) {
