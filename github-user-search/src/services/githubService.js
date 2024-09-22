@@ -11,8 +11,13 @@ export const fetchUserData = async (username, location = '', minRepos = '') => {
     throw new Error('User not found');
   }
 
-  const userUrl = response.data.items[0].url;
-  const userDetails = await axios.get(userUrl); // Fetch user details
-  
-  return userDetails.data;
+  // Return an array of users
+  const users = await Promise.all(
+    response.data.items.map(async (user) => {
+      const userDetails = await axios.get(user.url);
+      return userDetails.data;
+    })
+  );
+
+  return users; // Return all user details
 };
